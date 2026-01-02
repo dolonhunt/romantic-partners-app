@@ -1,0 +1,9 @@
+{
+  "query": "DROP TABLE IF EXISTS syncMetadata, milestones, quizResults, quizzes, dateIdeas, calendarEvents, todos, messages, profiles, relationships;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user w1Jr5JcNog73Jso.root --database EmtjW2BLFp9hi4GQqZM9Vn --execute DROP TABLE IF EXISTS syncMetadata, milestones, quizResults, quizzes, dateIdeas, calendarEvents, todos, messages, profiles, relationships;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 597
+}
