@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useData } from "@/lib/data-context";
 import { useColors } from "@/hooks/use-colors";
+import { EmptyState } from "@/components/empty-state";
 
 const styles = StyleSheet.create({
   actionButton: {
