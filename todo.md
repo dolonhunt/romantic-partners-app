@@ -32,13 +32,13 @@
 - [ ] Implement message deletion/editing options
 
 ## Shared Calendar Screen
-- [ ] Create calendar component (month view)
-- [ ] Display events on calendar dates
-- [ ] Implement event creation modal
-- [ ] Add event details view
-- [ ] Create color-coded event types
+- [x] Create calendar component (month view)
+- [x] Display events on calendar dates
+- [x] Implement event creation modal
+- [x] Add event details view
+- [x] Create color-coded event types
 - [ ] Implement filter by event type
-- [ ] Add month navigation (swipe/buttons)
+- [x] Add month navigation (swipe/buttons)
 - [ ] Sync calendar events in real-time
 
 ## Todo List Screen
@@ -58,46 +58,46 @@
 - [ ] Sync todos in real-time
 
 ## Date Ideas Screen
-- [ ] Create date ideas list/grid
-- [ ] Implement category filter (Romantic, Adventure, Casual, Creative)
-- [ ] Create date idea card component
+- [x] Create date ideas list/grid
+- [x] Implement category filter (Romantic, Adventure, Casual, Creative)
+- [x] Create date idea card component
 - [ ] Add "Plan This Date" functionality
-- [ ] Implement save/favorite ideas
+- [x] Implement save/favorite ideas
 - [ ] Add search functionality
 - [ ] Create idea details view
-- [ ] Populate with initial date ideas data
+- [x] Populate with initial date ideas data
 
 ## Quizzes Screen
-- [ ] Create quiz list component
-- [ ] Implement quiz card component
-- [ ] Create quiz question screen
-- [ ] Add answer selection UI
-- [ ] Implement quiz results screen
+- [x] Create quiz list component
+- [x] Implement quiz card component
+- [x] Create quiz question screen
+- [x] Add answer selection UI
+- [x] Implement quiz results screen
 - [ ] Add share results functionality
-- [ ] Create quiz categories (Love Language, Compatibility, Fun Facts)
-- [ ] Populate with initial quizzes
+- [x] Create quiz categories (Love Language, Compatibility, Fun Facts)
+- [x] Populate with initial quizzes
 
 ## Milestones Screen
-- [ ] Create timeline view component
-- [ ] Implement milestone card component
-- [ ] Add milestone creation modal
+- [x] Create timeline view component
+- [x] Implement milestone card component
+- [x] Add milestone creation modal
 - [ ] Create milestone details view
 - [ ] Add milestone editing functionality
-- [ ] Implement delete milestone
-- [ ] Display days since/until milestone
+- [x] Implement delete milestone
+- [x] Display days since/until milestone
 - [ ] Add milestone notifications
 - [ ] Support optional photos for milestones
 
 ## Profile Screen
-- [ ] Create profile card component
-- [ ] Display user profile information
+- [x] Create profile card component
+- [x] Display user profile information
 - [ ] Add profile picture upload
-- [ ] Create edit profile modal
+- [x] Create edit profile modal
 - [ ] Implement notification preferences
 - [ ] Add privacy settings
 - [ ] Create theme toggle (Light/Dark)
 - [ ] Add logout functionality
-- [ ] Display app version and about info
+- [x] Display app version and about info
 
 ## Data Synchronization
 - [ ] Implement real-time sync for messages
