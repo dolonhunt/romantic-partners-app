@@ -10,7 +10,7 @@ This is the working backlog for improving the private anniversary intimacy cours
 - [x] Keep the plum, burgundy, rose-gold, and champagne palette as the product signature.
 - [x] Add a semantic surface/text/border token layer for consistent styling.
 - [x] Add reduced-motion support for ambient animation and celebration effects.
-- [ ] Run a contrast audit for every muted text color and interactive state.
+- [x] Run a contrast audit for every muted text color and interactive state.
 - [ ] Add a light reading mode for daytime use without changing saved content.
 
 ### Landing and navigation

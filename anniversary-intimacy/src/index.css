@@ -20,10 +20,10 @@
   --color-surface-elevated: #351f3a;
   --color-surface-glass: rgba(43, 27, 46, 0.6);
   --color-text-primary: #E8C9A0;
-  --color-text-secondary: rgba(232, 201, 160, 0.5);
-  --color-text-whisper: rgba(232, 201, 160, 0.2);
-  --color-border-subtle: rgba(183, 110, 121, 0.08);
-  --color-border-visible: rgba(183, 110, 121, 0.15);
+  --color-text-secondary: rgba(246, 231, 207, 0.82);
+  --color-text-whisper: rgba(246, 231, 207, 0.62);
+  --color-border-subtle: rgba(232, 201, 160, 0.18);
+  --color-border-visible: rgba(232, 201, 160, 0.32);
 }
 
 /* ═══════════════════════════════════════════════════════

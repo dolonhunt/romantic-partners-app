@@ -62,7 +62,7 @@ function CelebrationOverlay({ day, onClose }: { day: number; onClose: () => void
         <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
           className="font-display text-2xl md:text-3xl font-bold text-gradient mb-2">Day {day} Complete</motion.h2>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-          className="text-gold-300/60 text-sm">Your connection deepened tonight</motion.p>
+          className="text-gold-200/85 text-sm">Your connection deepened tonight</motion.p>
       </div>
     </motion.div>
   );
@@ -170,7 +170,7 @@ export default function App() {
                 <div className="flex items-center gap-1">
                   {desktopNavItems.map(item => (
                     <button key={item.id} onClick={() => scrollToSection(item.id)}
-                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all ${activeDesktopSection === item.id ? 'bg-wine-700/30 text-gold-300' : 'text-gold-400/40 hover:text-gold-300'}`}>
+                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all ${activeDesktopSection === item.id ? 'bg-wine-700/30 text-gold-300' : 'text-gold-200/80 hover:text-gold-300'}`}>
                       {item.icon}<span className="hidden lg:inline">{item.label}</span>
                     </button>
                   ))}
@@ -178,7 +178,7 @@ export default function App() {
                 <div className="flex items-center gap-3">
                   <StreakBadge count={partnerStore.streak.count} />
                   <div className="flex items-center gap-1" aria-label={`${completedDays.size} of 14 days complete`}><Sparkles className="w-3 h-3 text-gold-400" /><span className="text-xs text-gold-400/60">{completedDays.size}/14</span></div>
-                  <button onClick={() => setPanicMode(true)} className="p-2 rounded-lg text-gold-400/40 hover:text-gold-300" title="Hide private content (double-press Escape)" aria-label="Hide private content"><EyeOff className="w-4 h-4" /></button>
+                  <button onClick={() => setPanicMode(true)} className="p-2 rounded-lg text-gold-200/80 hover:text-gold-300" title="Hide private content (double-press Escape)" aria-label="Hide private content"><EyeOff className="w-4 h-4" /></button>
                 </div>
               </div>
             </div>
@@ -193,7 +193,7 @@ export default function App() {
               </div>
               <div className="flex items-center gap-2">
                 <StreakBadge count={partnerStore.streak.count} />
-                <button onClick={() => setPanicMode(true)} className="p-2 rounded-lg text-gold-400/40" title="Hide private content (double-press Escape)" aria-label="Hide private content"><EyeOff className="w-4 h-4" /></button>
+                <button onClick={() => setPanicMode(true)} className="p-2 rounded-lg text-gold-200/80" title="Hide private content (double-press Escape)" aria-label="Hide private content"><EyeOff className="w-4 h-4" /></button>
                 <button className="p-2 -mr-2 text-gold-300" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
                   {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
@@ -204,7 +204,7 @@ export default function App() {
                 <div className="px-4 py-3 space-y-1">
                   {desktopNavItems.map(item => (
                     <button key={item.id} onClick={() => { scrollToSection(item.id); setMobileNavOpen(false); }}
-                      className="flex items-center gap-2 w-full px-3 py-3 rounded-lg text-sm text-gold-300/60">{item.icon}{item.label}</button>
+                      className="flex items-center gap-2 w-full px-3 py-3 rounded-lg text-sm text-gold-200/85">{item.icon}{item.label}</button>
                   ))}
                 </div>
               </motion.div>
@@ -246,8 +246,8 @@ export default function App() {
                   return (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                       className="flex flex-col items-center justify-center py-1 px-3 min-w-[56px] relative">
-                      <div className={`transition-all duration-200 ${isActive ? 'text-gold-400 scale-110' : 'text-gold-400/30'}`}>{tab.icon}</div>
-                      <span className={`text-[10px] mt-1 font-medium transition-colors ${isActive ? 'text-gold-300' : 'text-gold-400/30'}`}>{tab.shortLabel}</span>
+                      <div className={`transition-all duration-200 ${isActive ? 'text-gold-400 scale-110' : 'text-gold-200/70'}`}>{tab.icon}</div>
+                      <span className={`text-[10px] mt-1 font-medium transition-colors ${isActive ? 'text-gold-300' : 'text-gold-200/70'}`}>{tab.shortLabel}</span>
                       {isActive && <motion.div layoutId="mobTab" className="absolute -top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-gradient-to-r from-gold-500 to-wine-500" transition={{ type: 'spring', bounce: 0.2 }} />}
                     </button>
                   );
@@ -265,7 +265,7 @@ export default function App() {
                   <motion.button key={item.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.05 }}
                     onClick={() => scrollToSection(item.id)} className="glass rounded-xl p-4 text-center group hover:bg-wine-700/10 transition-all">
                     <div className="w-10 h-10 mx-auto rounded-lg bg-deep-800/50 flex items-center justify-center text-gold-400 mb-2 group-hover:bg-wine-700/30">{item.icon}</div>
-                    <p className="text-xs text-gold-300/60 group-hover:text-gold-300">{item.label}</p>
+                    <p className="text-xs text-gold-200/85 group-hover:text-gold-300">{item.label}</p>
                   </motion.button>
                 ))}
               </div>
@@ -338,7 +338,7 @@ function WelcomeBanner({ completedDays, partnerStore }: { completedDays: Set<num
             ].map(s => (
               <div key={s.label} className="text-center">
                 <div className="text-lg md:text-2xl font-bold font-display text-gradient">{s.num}</div>
-                <div className="text-[10px] md:text-xs text-gold-400/40">{s.label}</div>
+                <div className="text-[10px] md:text-xs text-gold-200/80">{s.label}</div>
               </div>
             ))}
           </div>
