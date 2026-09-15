@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Heart, Compass, Gamepad2, ClipboardList, PenTool, BookOpen,
-  Play, Menu, X, ArrowUp, Sparkles, Home, Headphones, Shield, EyeOff, Eye
+  Play, Menu, X, ArrowUp, Sparkles, Home, Headphones, Shield, EyeOff, Eye, Lock, Check
 } from 'lucide-react';
 import HeroSection from './components/HeroSection';
 import CourseTimeline from './components/CourseTimeline';
@@ -10,6 +10,7 @@ import { GamesSection, SurveysSection, WritingPromptsSection, LearningMaterialsS
 import { PartnerSwitcher, MoodCheckIn, StreakBadge, NotificationSetup, AmbientSoundPlayer } from './components/PartnerReveal';
 import { usePartnerStore } from './hooks/usePartnerStore';
 import type { Partner } from './hooks/usePartnerStore';
+import PrivacyGate from './components/PrivacyGate';
 
 // ─── LOCALSTORAGE HELPERS ──────────────────────────────────
 function loadState<T>(key: string, fallback: T): T {
@@ -136,7 +137,8 @@ export default function App() {
   if (panicMode) return <DisguisePage onReveal={() => setPanicMode(false)} />;
 
   return (
-    <div className="min-h-screen film-grain" style={{background:'#121212'}}>
+  <PrivacyGate>
+  <div className="min-h-screen film-grain" style={{background:'#121212'}}>
       <AnimatePresence>{celebrationDay !== null && <CelebrationOverlay key={`c-${celebrationDay}`} day={celebrationDay} onClose={() => setCelebrationDay(null)} />}</AnimatePresence>
 
       {/* ═══ HERO ═══ */}
@@ -295,6 +297,7 @@ export default function App() {
         </motion.div>
       )}</AnimatePresence>
     </div>
+  </PrivacyGate>
   );
 }
 

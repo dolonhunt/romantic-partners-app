@@ -38,7 +38,7 @@ This is the working backlog for improving the private anniversary intimacy cours
 
 ### Privacy and safety — highest priority
 - [ ] Add first-run onboarding for partner names, anniversary date, boundaries, and privacy expectations.
-- [ ] Add a local PIN/passcode gate before opening private answers or journal entries.
+- [x] Add a local PIN/passcode gate before opening private answers or journal entries.
 - [ ] Add a “hide private content” setting and make the disguise screen configurable.
 - [ ] Add content warnings, intensity labels, and a “not tonight” skip path to every higher-intensity activity.
 - [ ] Add explicit confirmation before revealing private survey answers or writing.
@@ -103,6 +103,7 @@ A couple can open the app on a phone, understand what to do next, complete an ac
 - 2026-09-15: Created the design and feature backlog; marked existing token and reduced-motion foundation work as complete where present in the current stylesheet.
 - 2026-09-15: Added semantic design tokens, stronger focus states, and reduced-motion handling to the global stylesheet.
 - 2026-09-15: Added accessible hide controls, top-nav progress summary, mobile “Continue tonight” resume action, and timeline anchors for the next incomplete day.
+- 2026-09-15: Added a local SHA-256 PIN gate with session unlock before opening the course.
 
 ## Working rule
 
