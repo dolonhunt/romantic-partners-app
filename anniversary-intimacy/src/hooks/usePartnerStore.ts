@@ -212,6 +212,8 @@ export function usePartnerStore() {
   // Reset all data
   const resetAll = useCallback(() => {
     Object.values(KEYS).forEach(key => localStorage.removeItem(key));
+    ['next18_started', 'next18_completedDays', 'next18_onboardingComplete', 'next18_anniversaryDate', 'next18_boundaries', 'next18_privacy_pin'].forEach(key => localStorage.removeItem(key));
+    sessionStorage.removeItem('next18_unlocked');
     window.location.reload();
   }, []);
 
