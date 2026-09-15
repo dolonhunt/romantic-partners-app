@@ -139,9 +139,19 @@ export function SurveysSection({ partnerStore }: { partnerStore?: PartnerStoreLi
                         }`}>{o}</button>
                       ))}</div>
                     </div>)}
+                    {store && store.surveyReveal.partnerAReady && store.surveyReveal.partnerBReady && (store.surveyReveal.partnerA[q.id] || store.surveyReveal.partnerB[q.id]) && (
+                      <div className="rounded-xl border border-rose-gold/20 bg-rose-gold/5 p-4" aria-live="polite">
+                        {store.surveyReveal.revealed[String(q.id)] ? (
+                          <div className="grid gap-3 md:grid-cols-2">
+                            <div><p className="text-[9px] uppercase tracking-[0.14em] text-champagne/70">{store.surveyReveal.partnerA[q.id] ? 'Partner one' : 'Partner one — no answer yet'}</p><p className="mt-1 text-xs leading-relaxed text-champagne/95">{store.surveyReveal.partnerA[q.id] || 'No answer shared'}</p></div>
+                            <div><p className="text-[9px] uppercase tracking-[0.14em] text-champagne/70">{store.surveyReveal.partnerB[q.id] ? 'Partner two' : 'Partner two — no answer yet'}</p><p className="mt-1 text-xs leading-relaxed text-champagne/95">{store.surveyReveal.partnerB[q.id] || 'No answer shared'}</p></div>
+                          </div>
+                        ) : <button type="button" onClick={() => store.revealSurveyAnswer(String(q.id))} className="btn-primary rounded-xl px-4 py-2.5 text-[10px] uppercase tracking-[0.08em]">Reveal this answer together</button>}
+                      </div>
+                    )}
                     {q.followUp&&(<div className="pt-3" style={{borderTop:'1px solid rgba(183,110,121,0.03)'}}>
-                      <p className="text-[9px] text-champagne/10 mb-1">Follow-up:</p>
-                      <p className="text-[10px] text-champagne/15 italic font-light">{q.followUp}</p>
+                      <p className="text-[9px] text-champagne/70 mb-1">Follow-up:</p>
+                      <p className="text-[10px] text-champagne/85 italic font-light">{q.followUp}</p>
                     </div>)}
                   </div>
                 </div>
