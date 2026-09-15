@@ -114,6 +114,7 @@ export default function App() {
     window.addEventListener('keydown', handler); return () => window.removeEventListener('keydown', handler);
   }, []);
 
+  const nextIncompleteDay = Array.from({ length: 14 }, (_, index) => index + 1).find(day => !completedDays.has(day)) ?? 14;
   const handleStart = useCallback(() => { setStarted(true); }, []);
   const handleSelectDay = useCallback((day: number) => {
     setCompletedDays(prev => { const next = new Set(prev); if (!next.has(day)) { next.add(day); setCelebrationDay(day); } return next; });
@@ -164,8 +165,8 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-3">
                   <StreakBadge count={partnerStore.streak.count} />
-                  <div className="flex items-center gap-1"><Sparkles className="w-3 h-3 text-gold-400" /><span className="text-xs text-gold-400/60">{completedDays.size}/14</span></div>
-                  <button onClick={() => setPanicMode(true)} className="p-1.5 rounded-lg text-gold-400/20 hover:text-gold-400/50" title="Hide"><EyeOff className="w-4 h-4" /></button>
+                  <div className="flex items-center gap-1" aria-label={`${completedDays.size} of 14 days complete`}><Sparkles className="w-3 h-3 text-gold-400" /><span className="text-xs text-gold-400/60">{completedDays.size}/14</span></div>
+                  <button onClick={() => setPanicMode(true)} className="p-2 rounded-lg text-gold-400/40 hover:text-gold-300" title="Hide private content (double-press Escape)" aria-label="Hide private content"><EyeOff className="w-4 h-4" /></button>
                 </div>
               </div>
             </div>
@@ -180,7 +181,7 @@ export default function App() {
               </div>
               <div className="flex items-center gap-2">
                 <StreakBadge count={partnerStore.streak.count} />
-                <button onClick={() => setPanicMode(true)} className="p-1.5 rounded-lg text-gold-400/20"><EyeOff className="w-4 h-4" /></button>
+                <button onClick={() => setPanicMode(true)} className="p-2 rounded-lg text-gold-400/40" title="Hide private content (double-press Escape)" aria-label="Hide private content"><EyeOff className="w-4 h-4" /></button>
                 <button className="p-2 -mr-2 text-gold-300" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
                   {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
@@ -214,6 +215,16 @@ export default function App() {
               {activeTab === 'learn' && (<MobileTabContent key="learn"><LearningMaterialsSection /></MobileTabContent>)}
               {activeTab === 'media' && (<MobileTabContent key="media"><MediaSection /></MobileTabContent>)}
             </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => { setActiveTab('home'); requestAnimationFrame(() => document.getElementById(`day-${nextIncompleteDay}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })); }}
+              className="fixed bottom-[4.9rem] left-4 right-4 z-40 flex items-center justify-between rounded-2xl border border-rose-gold/20 bg-plum-900/95 px-4 py-3 text-left shadow-lg shadow-black/20 backdrop-blur-xl md:hidden"
+              aria-label={`Continue with day ${nextIncompleteDay}`}
+            >
+              <span><span className="block text-[10px] uppercase tracking-[0.18em] text-champagne/45">Continue tonight</span><span className="text-sm text-champagne/85">Day {nextIncompleteDay} of 14</span></span>
+              <span className="rounded-full bg-rose-gold/15 px-3 py-1 text-xs text-champagne">Resume</span>
+            </button>
 
             {/* Bottom nav */}
             <div className="fixed bottom-0 left-0 right-0 z-50 glass-bottom md:hidden">

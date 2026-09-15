@@ -62,10 +62,12 @@ export default function CourseTimeline({ onSelectDay, completedDays }: CourseTim
             const open = expandedDay===day.day;
             const done = completedDays.has(day.day);
             return (
-              <motion.div key={day.day} initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} exit={{opacity:0}}
+              <motion.div id={`day-${day.day}`} key={day.day} initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} exit={{opacity:0}}
                 transition={{duration:0.4, delay:i*0.05}} className="noir-card overflow-hidden">
 
                 <button className="w-full p-5 md:p-7 text-left flex items-center gap-4 md:gap-5"
+                  aria-expanded={open}
+                  aria-controls={`day-content-${day.day}`}
                   onClick={()=>setExpandedDay(open?null:day.day)}>
                   {/* Icon */}
                   <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-2xl md:text-3xl shrink-0 transition-all duration-500 ${
@@ -91,7 +93,7 @@ export default function CourseTimeline({ onSelectDay, completedDays }: CourseTim
                 </button>
 
                 <AnimatePresence>{open && (
-                  <motion.div initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}}
+                  <motion.div id={`day-content-${day.day}`} initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}}
                     transition={{duration:0.4}} className="overflow-hidden">
                     <div className="px-5 md:px-7 pb-6 md:pb-8 pt-3 border-t" style={{borderColor:'rgba(183,110,121,0.04)'}}>
                       <p className="text-xs md:text-sm text-champagne/25 mb-6 leading-[1.8] font-light">{day.description}</p>

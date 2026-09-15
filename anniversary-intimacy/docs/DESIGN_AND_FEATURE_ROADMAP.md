@@ -15,9 +15,9 @@ This is the working backlog for improving the private anniversary intimacy cours
 
 ### Landing and navigation
 - [ ] Refine the hero into three clear layers: anniversary context, promise, and first action.
-- [ ] Add a compact “where you are” progress summary to the top navigation.
-- [ ] Keep the panic/disguise control visible but discreet, with an accessible label and keyboard shortcut hint.
-- [ ] Add a persistent mobile “Continue tonight” action that resumes the next incomplete activity.
+- [x] Add a compact “where you are” progress summary to the top navigation.
+- [x] Keep the panic/disguise control visible but discreet, with an accessible label and keyboard shortcut hint.
+- [x] Add a persistent mobile “Continue tonight” action that resumes the next incomplete activity.
 - [ ] Add active-section and focus states that remain visible in dark mode.
 
 ### Content and cards
@@ -102,6 +102,7 @@ A couple can open the app on a phone, understand what to do next, complete an ac
 
 - 2026-09-15: Created the design and feature backlog; marked existing token and reduced-motion foundation work as complete where present in the current stylesheet.
 - 2026-09-15: Added semantic design tokens, stronger focus states, and reduced-motion handling to the global stylesheet.
+- 2026-09-15: Added accessible hide controls, top-nav progress summary, mobile “Continue tonight” resume action, and timeline anchors for the next incomplete day.
 
 ## Working rule
 
