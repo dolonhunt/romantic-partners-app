@@ -15,6 +15,8 @@ const typeLabels: Record<string,string> = { game:'Game', survey:'Survey', prompt
 export default function CourseTimeline({ onSelectDay, completedDays }: CourseTimelineProps) {
   const [expandedDay, setExpandedDay] = useState<number|null>(null);
   const [week, setWeek] = useState<1|2>(1);
+  const [readyDays, setReadyDays] = useState<Set<number>>(new Set());
+  const [skippedDays, setSkippedDays] = useState<Set<number>>(new Set());
   const days = courseDays.filter(d => week===1 ? d.day<=7 : d.day>7);
 
   return (
@@ -112,8 +114,17 @@ export default function CourseTimeline({ onSelectDay, completedDays }: CourseTim
                           {day.tips.map((t,j)=> <p key={j} className="text-[11px] text-champagne/20 mb-1.5 font-light">💡 {t}</p>)}
                         </div>
                       )}
-                      <button onClick={()=>onSelectDay(day.day)}
-                        className="btn-magnetic btn-primary w-full py-3.5 md:py-4 rounded-xl text-xs md:text-sm tracking-[0.08em] uppercase">
+                      <div className="rounded-2xl border border-rose-gold/15 bg-rose-gold/5 p-4 mb-5" role="note">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-rose-gold/90">A gentle pause</p>
+                        <p className="mt-1.5 text-[11px] leading-relaxed text-champagne/85">Check in with each other before beginning. You can pause, skip, or return later without losing progress.</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <button type="button" onClick={() => setReadyDays(prev => new Set(prev).add(day.day))} className={`rounded-lg px-3 py-2 text-[9px] uppercase tracking-[0.08em] ${readyDays.has(day.day) ? 'btn-primary' : 'btn-ghost'}`}>{readyDays.has(day.day) ? 'Ready together' : 'We are ready'}</button>
+                          <button type="button" onClick={() => setSkippedDays(prev => new Set(prev).add(day.day))} className="btn-ghost rounded-lg px-3 py-2 text-[9px] uppercase tracking-[0.08em]">Not tonight</button>
+                        </div>
+                        {skippedDays.has(day.day) && <p className="mt-2 text-[10px] text-champagne/75" aria-live="polite">Skipped for now. You can return whenever it feels right.</p>}
+                      </div>
+                      <button onClick={()=>onSelectDay(day.day)} disabled={!readyDays.has(day.day) && !skippedDays.has(day.day)}
+                        className="btn-magnetic btn-primary w-full py-3.5 md:py-4 rounded-xl text-xs md:text-sm tracking-[0.08em] uppercase disabled:cursor-not-allowed disabled:opacity-50">
                         {done ? '✓ Complete — Review' : `Begin Day ${day.day}`}
                       </button>
                     </div>

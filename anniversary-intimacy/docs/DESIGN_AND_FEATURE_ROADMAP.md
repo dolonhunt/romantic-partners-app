@@ -40,8 +40,8 @@ This is the working backlog for improving the private anniversary intimacy cours
 - [x] Add first-run onboarding for partner names, anniversary date, boundaries, and privacy expectations.
 - [x] Add a local PIN/passcode gate before opening private answers or journal entries.
 - [ ] Add a “hide private content” setting and make the disguise screen configurable.
-- [ ] Add content warnings, intensity labels, and a “not tonight” skip path to every higher-intensity activity.
-- [ ] Add explicit confirmation before revealing private survey answers or writing.
+- [x] Add content warnings, intensity labels, and a “not tonight” skip path to every higher-intensity activity.
+- [x] Add explicit confirmation before revealing private survey answers or writing.
 - [ ] Add an export/delete-all-data screen so couples can control their local data.
 
 ### Course journey
