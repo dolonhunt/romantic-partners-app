@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Heart, Compass, Gamepad2, ClipboardList, PenTool, BookOpen,
-  Play, Menu, X, ArrowUp, Sparkles, Home, Headphones, Shield, EyeOff, Eye, Lock, Check
+  Play, Menu, X, ArrowUp, Sparkles, Home, Headphones, Shield, EyeOff, Eye
 } from 'lucide-react';
 import HeroSection from './components/HeroSection';
 import CourseTimeline from './components/CourseTimeline';
