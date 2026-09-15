@@ -179,6 +179,34 @@ button,a,[role="button"] {
   .cursor-aura { display: none; }
 }
 
+/* ═══ ACCESSIBILITY AND INTERACTION STATES ═══ */
+:focus-visible {
+  outline: 2px solid #E8C9A0;
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+::selection {
+  background: rgba(183, 110, 121, 0.45);
+  color: #fff7ed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════
    GLASS SYSTEM
    ═══════════════════════════════════════════════════════ */
