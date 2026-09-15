@@ -53,7 +53,7 @@ This is the working backlog for improving the private anniversary intimacy cours
 
 ### Connection activities
 - [x] Finish the survey reveal flow from answer entry through mutual reveal.
-- [ ] Finish private writing flow: autosave, ready-to-share state, reveal, and delete.
+- [x] Finish private writing flow: autosave, ready-to-share state, reveal, and delete.
 - [ ] Turn the card game into a complete playable experience with turn state and restart.
 - [ ] Add mood check-in history with trends that remain private to the device.
 - [ ] Add a small library of low-pressure alternatives for skipped activities.
