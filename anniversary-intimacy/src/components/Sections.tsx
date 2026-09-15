@@ -149,6 +149,7 @@ export function SurveysSection({ partnerStore }: { partnerStore?: PartnerStoreLi
             </motion.div>
           ))}
         </div>
+        {store && <div className="noir-card max-w-3xl mx-auto mt-8 p-5 md:p-6"><div className="flex flex-col md:flex-row md:items-center justify-between gap-4"><div><p className="text-xs text-champagne/55">Mutual reveal</p><p className="text-[10px] text-champagne/25 mt-1">Each partner answers privately, then both mark ready before answers can be shown.</p></div><button onClick={() => store.markSurveyReady(store.activePartner)} className="btn-ghost px-4 py-2.5 rounded-xl text-[10px] uppercase tracking-[0.08em]">I&apos;m ready to reveal</button></div><p className="text-[10px] text-champagne/25 mt-4" aria-live="polite">{store.surveyReveal.partnerAReady && store.surveyReveal.partnerBReady ? 'Both partners are ready. Choose a question above to reveal it.' : 'Waiting for both partners to mark ready.'}</p></div>}
         <p className="text-center mt-10 text-[9px] text-champagne/10 font-light tracking-[0.15em] uppercase">Complete separately, then share with curiosity</p>
       </motion.div>
     </section>
