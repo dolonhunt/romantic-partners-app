@@ -350,8 +350,14 @@ function WelcomeBanner({ completedDays, partnerStore }: { completedDays: Set<num
             <NotificationSetup />
           </div>
 
-          <div className="flex items-center justify-center gap-2 mt-3 text-[10px] text-gold-400/20">
-            <Eye className="w-3 h-3" /> Double-press ESC or tap the eye icon to hide instantly
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-3 text-[10px] text-gold-400/20">
+            <span className="flex items-center gap-2"><Eye className="w-3 h-3" /> Double-press ESC or tap the eye icon to hide instantly</span>
+            <button type="button" className="underline underline-offset-2 hover:text-gold-300" onClick={() => {
+              const data = Object.fromEntries(Object.keys(localStorage).filter(key => key.startsWith('next18_')).map(key => [key, localStorage.getItem(key)]));
+              const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+              const url = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = url; anchor.download = 'the-next-18-private-data.json'; anchor.click(); URL.revokeObjectURL(url);
+            }}>Export data</button>
+            <button type="button" className="underline underline-offset-2 text-rose-gold/60 hover:text-rose-gold" onClick={() => { if (window.confirm('Delete all course data from this device? This cannot be undone.')) partnerStore.resetAll(); }}>Delete all data</button>
           </div>
         </div>
       </div>
