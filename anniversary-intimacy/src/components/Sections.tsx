@@ -3,6 +3,19 @@ import { useState } from 'react';
 import { Flame, Gamepad2, ClipboardList, PenTool, BookOpen, Play, ChevronDown, ChevronRight, Clock, Sparkles, MessageCircle } from 'lucide-react';
 import { gameCards, surveyQuestions, writingPrompts, learningModules, mediaContent, conversationStarters } from '../data/courseData';
 
+type PartnerStoreLike = {
+  activePartner: 'A' | 'B';
+  surveyReveal: { partnerA: Record<string, string>; partnerB: Record<string, string>; revealed: Record<string, boolean>; partnerAReady: boolean; partnerBReady: boolean };
+  promptReveal: { partnerA: Record<string, string>; partnerB: Record<string, string>; revealed: Record<string, boolean>; partnerAReady: boolean; partnerBReady: boolean };
+  writingResponses: Record<string, Record<'A' | 'B', string>>;
+  saveSurveyAnswer: (id: string, answer: string) => void;
+  markSurveyReady: (partner: 'A' | 'B') => void;
+  revealSurveyAnswer: (id: string) => void;
+  saveWritingResponse: (id: number, response: string) => void;
+  markPromptReady: (partner: 'A' | 'B') => void;
+  revealPromptAnswer: (id: string) => void;
+};
+
 const sv = { hidden:{opacity:0,y:50}, visible:{opacity:1,y:0,transition:{duration:0.8, staggerChildren:0.07}} };
 const iv = { hidden:{opacity:0,y:25}, visible:{opacity:1,y:0} };
 
@@ -68,8 +81,8 @@ export function GamesSection() {
 }
 
 /* ═══ SURVEYS ═══ */
-export function SurveysSection({ partnerStore }: { partnerStore?: Record<string,unknown> } = {}) {
-  void partnerStore;
+export function SurveysSection({ partnerStore }: { partnerStore?: PartnerStoreLike } = {}) {
+  const store = partnerStore;
   const [cat,setCat] = useState('Desire Mapping');
   const [expQ,setExpQ] = useState<number|null>(null);
   const [ans,setAns] = useState<Record<number,string>>({});
@@ -101,7 +114,7 @@ export function SurveysSection({ partnerStore }: { partnerStore?: Record<string,
                     {q.type==='scale'&&(<div>
                       <p className="text-[9px] text-champagne/20 mb-3 tracking-[0.15em] uppercase">Your Rating</p>
                       <div className="flex gap-1.5 flex-wrap">{[1,2,3,4,5,6,7,8,9,10].map(n=>(
-                        <button key={n} onClick={()=>setAns({...ans,[q.id]:String(n)})} className={`w-8 h-8 md:w-10 md:h-10 rounded-lg text-[10px] md:text-xs font-medium transition-all active:scale-90 ${
+                        <button key={n} onClick={()=>{setAns({...ans,[q.id]:String(n)}); store?.saveSurveyAnswer(String(q.id), String(n));}} className={`w-8 h-8 md:w-10 md:h-10 rounded-lg text-[10px] md:text-xs font-medium transition-all active:scale-90 ${
                           ans[q.id]===String(n)?'btn-primary rounded-lg shadow-lg shadow-ember/20':'bg-plum-900/20 text-champagne/20 border border-rose-gold/4'
                         }`}>{n}</button>
                       ))}</div>
@@ -109,19 +122,19 @@ export function SurveysSection({ partnerStore }: { partnerStore?: Record<string,
                     {q.type==='multiple'&&q.options&&(<div>
                       <p className="text-[9px] text-champagne/20 mb-3 tracking-[0.15em] uppercase">Select all that apply</p>
                       <div className="flex flex-wrap gap-2">{q.options.map(o=>(
-                        <button key={o} onClick={()=>setAns({...ans,[q.id]:o})} className={`px-3 py-2 rounded-lg text-[10px] md:text-xs transition-all active:scale-95 ${
+                        <button key={o} onClick={()=>{setAns({...ans,[q.id]:o}); store?.saveSurveyAnswer(String(q.id), o);}} className={`px-3 py-2 rounded-lg text-[10px] md:text-xs transition-all active:scale-95 ${
                           ans[q.id]===o?'btn-primary rounded-lg':'btn-ghost rounded-lg'
                         }`}>{o}</button>
                       ))}</div>
                     </div>)}
                     {q.type==='open'&&(<div>
                       <p className="text-[9px] text-champagne/20 mb-3 tracking-[0.15em] uppercase">Your Response</p>
-                      <textarea className="w-full rounded-xl p-3.5 text-champagne/60 text-xs md:text-sm focus:outline-none transition-colors" style={{background:'rgba(43,27,46,0.2)',border:'1px solid rgba(183,110,121,0.04)'}} rows={3} placeholder="Write your honest response..." value={ans[q.id]||''} onChange={e=>setAns({...ans,[q.id]:e.target.value})}/>
+                      <textarea className="w-full rounded-xl p-3.5 text-champagne/60 text-xs md:text-sm focus:outline-none transition-colors" style={{background:'rgba(43,27,46,0.2)',border:'1px solid rgba(183,110,121,0.04)'}} rows={3} placeholder="Write your honest response..." value={ans[q.id]||''} onChange={e=>{setAns({...ans,[q.id]:e.target.value}); store?.saveSurveyAnswer(String(q.id), e.target.value);}}/>
                     </div>)}
                     {q.type==='yesno'&&(<div>
                       <p className="text-[9px] text-champagne/20 mb-3 tracking-[0.15em] uppercase">Your Answer</p>
                       <div className="flex gap-3">{['Yes','No'].map(o=>(
-                        <button key={o} onClick={()=>setAns({...ans,[q.id]:o})} className={`px-6 py-2.5 rounded-xl text-xs font-medium transition-all active:scale-95 tracking-[0.08em] uppercase ${
+                        <button key={o} onClick={()=>{setAns({...ans,[q.id]:o}); store?.saveSurveyAnswer(String(q.id), o);}} className={`px-6 py-2.5 rounded-xl text-xs font-medium transition-all active:scale-95 tracking-[0.08em] uppercase ${
                           ans[q.id]===o?'btn-primary rounded-xl':'btn-ghost rounded-xl'
                         }`}>{o}</button>
                       ))}</div>
@@ -143,8 +156,8 @@ export function SurveysSection({ partnerStore }: { partnerStore?: Record<string,
 }
 
 /* ═══ WRITING ═══ */
-export function WritingPromptsSection({ partnerStore }: { partnerStore?: Record<string,unknown> } = {}) {
-  void partnerStore;
+export function WritingPromptsSection({ partnerStore }: { partnerStore?: PartnerStoreLike } = {}) {
+  const store = partnerStore;
   const [act,setAct] = useState<number|null>(null);
   const [res,setRes] = useState<Record<number,string>>({});
   const [showC,setShowC] = useState(false);
@@ -168,7 +181,7 @@ export function WritingPromptsSection({ partnerStore }: { partnerStore?: Record<
                 <p className="text-[11px] md:text-xs text-champagne/18 leading-[1.7] line-clamp-3 mb-5 font-light">{p.prompt}</p>
                 {act===p.id ? (
                   <div className="space-y-3">
-                    <textarea className="w-full rounded-xl p-4 text-champagne/50 text-xs md:text-sm focus:outline-none" style={{background:'rgba(43,27,46,0.2)',border:'1px solid rgba(183,110,121,0.04)'}} rows={4} placeholder="Let it flow..." value={res[p.id]||''} onChange={e=>setRes({...res,[p.id]:e.target.value})}/>
+                    <textarea className="w-full rounded-xl p-4 text-champagne/50 text-xs md:text-sm focus:outline-none" style={{background:'rgba(43,27,46,0.2)',border:'1px solid rgba(183,110,121,0.04)'}} rows={4} placeholder="Let it flow..." value={res[p.id] ?? store?.writingResponses[String(p.id)]?.[store.activePartner] ?? ''} onChange={e=>{setRes({...res,[p.id]:e.target.value}); store?.saveWritingResponse(p.id, e.target.value);}}/>
                     <div className="rounded-lg p-3" style={{background:'rgba(43,27,46,0.15)',border:'1px solid rgba(183,110,121,0.03)'}}>
                       <p className="text-[9px] text-champagne/10 mb-0.5">After writing:</p>
                       <p className="text-[10px] text-champagne/15 italic font-light">{p.followUp}</p>
