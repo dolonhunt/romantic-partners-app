@@ -11,6 +11,7 @@ import { PartnerSwitcher, MoodCheckIn, StreakBadge, NotificationSetup, AmbientSo
 import { usePartnerStore } from './hooks/usePartnerStore';
 import type { Partner } from './hooks/usePartnerStore';
 import PrivacyGate from './components/PrivacyGate';
+import Onboarding from './components/Onboarding';
 
 // ─── LOCALSTORAGE HELPERS ──────────────────────────────────
 function loadState<T>(key: string, fallback: T): T {
@@ -98,6 +99,7 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [panicMode, setPanicMode] = useState(false);
   const [celebrationDay, setCelebrationDay] = useState<number | null>(null);
+  const [onboardingComplete, setOnboardingComplete] = useState(() => loadState('onboardingComplete', false));
 
   // Partner system
   const partnerStore = usePartnerStore();
@@ -117,6 +119,14 @@ export default function App() {
 
   const nextIncompleteDay = Array.from({ length: 14 }, (_, index) => index + 1).find(day => !completedDays.has(day)) ?? 14;
   const handleStart = useCallback(() => { setStarted(true); }, []);
+  const handleOnboardingComplete = useCallback((data: { nameA: string; nameB: string; anniversary: string; boundaries: string }) => {
+    partnerStore.updateProfile('A', { name: data.nameA });
+    partnerStore.updateProfile('B', { name: data.nameB });
+    saveState('anniversaryDate', data.anniversary);
+    saveState('boundaries', data.boundaries);
+    saveState('onboardingComplete', true);
+    setOnboardingComplete(true);
+  }, [partnerStore]);
   const handleSelectDay = useCallback((day: number) => {
     setCompletedDays(prev => { const next = new Set(prev); if (!next.has(day)) { next.add(day); setCelebrationDay(day); } return next; });
   }, []);
@@ -138,7 +148,7 @@ export default function App() {
 
   return (
   <PrivacyGate>
-  <div className="min-h-screen film-grain" style={{background:'#121212'}}>
+  {!onboardingComplete ? <Onboarding initialA={partnerStore.profiles.A.name} initialB={partnerStore.profiles.B.name} onComplete={handleOnboardingComplete} /> : <div className="min-h-screen film-grain" style={{background:'#121212'}}>
       <AnimatePresence>{celebrationDay !== null && <CelebrationOverlay key={`c-${celebrationDay}`} day={celebrationDay} onClose={() => setCelebrationDay(null)} />}</AnimatePresence>
 
       {/* ═══ HERO ═══ */}
@@ -296,7 +306,7 @@ export default function App() {
           </div>
         </motion.div>
       )}</AnimatePresence>
-    </div>
+    </div>}
   </PrivacyGate>
   );
 }
